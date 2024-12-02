@@ -55,7 +55,8 @@ const router = createRouter({
       // meta: {
       //   auth: true
       // }
-    }
+    },
+    { path: '/:pathMatch(.*)*', name: 'not_found', component: import('./../views/NotFound.vue') }
   ]
 });
 
