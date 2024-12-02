@@ -80,8 +80,12 @@ onMounted(async () => {
     <div class="col-md-12">
       <div class="card mb-4">
         <div class="card-header">
-          Funcionários (
-          {{ employees.length }}/{{ meta?.per_page || 0 }} - {{ meta?.total || 0 }})
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="">
+              Funcionários ( {{ employees.length }}/{{ meta?.per_page || 0 }} - {{ meta?.total || 0 }})
+            </div>
+            <div class="" v-if="processing">Carregando dados ...</div>
+          </div>
         </div>
 
         <div class="card-body">
