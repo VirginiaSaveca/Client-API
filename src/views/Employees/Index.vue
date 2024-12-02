@@ -90,36 +90,26 @@ onMounted(async () => {
               <thead class="fw-semibold text-nowrap">
                 <tr class="align-middle">
                   <th class="bg-body-secondary">#</th>
-                  <th class="bg-body-secondary">Name</th>
-                  <th class="bg-body-secondary">Naturalidade</th>
-                  <th class="bg-body-secondary">Nacionalidade</th>
-                  <th class="bg-body-secondary">Contacto</th>
-                  <th class="bg-body-secondary">Email</th>
-                  <th class="bg-body-secondary">BI</th>
                   <th class="bg-body-secondary">NUIT</th>
-                  <th class="bg-body-secondary">Nível</th>
+                  <th class="bg-body-secondary">Extensão</th>
+                  <th class="bg-body-secondary">Nome</th>
                   <th class="bg-body-secondary">Carreira</th>
-                  <th class="bg-body-secondary">Partição</th>
-                  <th class="bg-body-secondary">Departamento</th>
-                  <th class="bg-body-secondary">Unidade orgânica</th>
+                  <th class="bg-body-secondary"></th>
                 </tr>
               </thead>
 
               <tbody>
                 <tr class="align-middle" v-bind:key="employee.id" v-for="employee in employees">
                   <td>{{ employee.id }}</td>
-                  <td>{{ employee.name }}</td>
-                  <td>{{ employee.naturality }}</td>
-                  <td>{{ employee.nationality }}</td>
-                  <td>{{ employee.contact }}</td>
-                  <td>{{ employee.email }}</td>
-                  <td>{{ employee.bi_nr }}</td>
                   <td>{{ employee.nuit }}</td>
-                  <td>{{ employee.level }}</td>
+                  <td>{{ employee.branch }}</td>
+                  <td>{{ employee.name }}</td>
                   <td>{{ employee.career }}</td>
-                  <td>{{ employee.partition }}</td>
-                  <td>{{ employee.department }}</td>
-                  <td>{{ employee.organic_unit }}</td>
+                  <td>
+                    <RouterLink v-bind:to="{ name: 'employee', params: { id: employee.id } }">
+                      <button class="btn btn-primary">Ver</button>
+                    </RouterLink>
+                  </td>
                 </tr>
               </tbody>
             </table>
