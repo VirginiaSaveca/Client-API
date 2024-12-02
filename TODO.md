@@ -1,3 +1,0 @@
-- 404
-- regex for {id} :id
-- computed proprieties
