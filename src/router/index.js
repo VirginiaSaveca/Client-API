@@ -51,10 +51,10 @@ const router = createRouter({
           name: 'employees',
           component: () => import('./../views/Employees/Index.vue')
         }
-      ]
-      // meta: {
-      //   auth: true
-      // }
+      ],
+      meta: {
+        auth: true
+      }
     },
     { path: '/:pathMatch(.*)*', name: 'not_found', component: import('./../views/NotFound.vue') }
   ]
