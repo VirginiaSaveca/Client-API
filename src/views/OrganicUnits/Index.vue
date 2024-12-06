@@ -2,8 +2,7 @@
 import http from '@/services/http';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { computed, onMounted, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRoute, useRouter } from 'vue-router';
 
 const router = useRouter();
 const route = useRoute();
@@ -112,7 +111,7 @@ onMounted(async () => {
             </table>
           </div>
         </div>
-        <div class="card-footer">
+        <div class="card-footer" v-show="meta?.last_page !== 1">
           <div class="btn-group" role="group">
             <a
               v-bind:href="`/organic_units?page=${1}`"
