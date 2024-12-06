@@ -59,15 +59,24 @@ const GET = async () => {
 
 const DELETE = async id => {
   try {
-    deleting.value = true;
-    const { data } = await http.delete(`/employees/${id}`);
-    Toast.fire({
-      icon: 'success',
-      title: 'Eliminar',
-      text: 'Registo excluido com sucesso.'
+    Swal.fire({
+      title: 'Eliminar registo?',
+      showDenyButton: false,
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar'
+    }).then(async result => {
+      if (result.isConfirmed) {
+        deleting.value = true;
+        const { data } = await http.delete(`/employees/${id}`);
+        Toast.fire({
+          icon: 'success',
+          title: 'Eliminar',
+          text: 'Registo excluido com sucesso.'
+        });
+        employees.value = employees.value?.filter(employee => employee.id !== id);
+        console.log(data);
+      }
     });
-    employees.value = employees.value?.filter(employee => employee.id !== id);
-    console.log(data);
   } catch (error) {
     if (error?.response) {
       console.log(error.response);
