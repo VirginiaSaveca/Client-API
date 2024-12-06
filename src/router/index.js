@@ -48,12 +48,17 @@ const router = createRouter({
         },
         {
           path: '/employees',
-          name: 'employees',
+          name: 'employees.index',
           component: () => import('./../views/Employees/Index.vue')
         },
         {
+          path: '/employees/create',
+          name: 'employees.create',
+          component: () => import('./../views/Employees/Create.vue')
+        },
+        {
           path: '/employees/:id(\\d+)',
-          name: 'employee',
+          name: 'employees.show',
           component: () => import('./../views/Employees/Show.vue')
         }
       ],

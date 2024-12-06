@@ -1,9 +1,8 @@
 <script setup>
 import http from '@/services/http';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import { computed, onMounted, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { RouterLink } from 'vue-router';
+import { onMounted, ref } from 'vue';
+import { RouterLink, useRoute, useRouter } from 'vue-router';
 
 const router = useRouter();
 const route = useRoute();
@@ -61,7 +60,7 @@ onMounted(async () => {
             <RouterLink v-bind:to="{ name: 'dashboard' }">Dashboard</RouterLink>
           </li>
           <li class="breadcrumb-item active">
-            <RouterLink v-bind:to="{ name: 'employees' }">Funcionários</RouterLink>
+            <RouterLink v-bind:to="{ name: 'employees.index' }">Funcionários</RouterLink>
           </li>
           <li class="breadcrumb-item active">
             <span>{{ $route.params.id }}</span>

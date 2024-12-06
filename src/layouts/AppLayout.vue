@@ -1,6 +1,6 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router';
 import { useAuth } from '@/stores/auth';
+import { RouterLink, RouterView } from 'vue-router';
 
 const auth = useAuth();
 </script>
@@ -53,7 +53,7 @@ const auth = useAuth();
       </li>
       <li class="nav-item"></li>
       <li class="nav-item">
-        <RouterLink v-bind:to="{ name: 'employees' }" class="nav-link">
+        <RouterLink v-bind:to="{ name: 'employees.index' }" class="nav-link">
           <svg class="nav-icon">
             <use xlink:href="/assets/vendors/@coreui/icons/svg/free.svg#cil-people"></use>
           </svg>

@@ -2,8 +2,7 @@
 import http from '@/services/http';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { computed, onMounted, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRoute, useRouter } from 'vue-router';
 
 const router = useRouter();
 const route = useRoute();
@@ -76,6 +75,12 @@ onMounted(async () => {
     </div>
   </div>
 
+  <div class="row mb-2">
+    <div class="col-12">
+      <RouterLink v-bind:to="{ name: 'employees.create' }" class="btn btn-primary">Criar</RouterLink>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-md-12">
       <div class="card mb-4">
@@ -110,8 +115,11 @@ onMounted(async () => {
                   <td>{{ employee.name }}</td>
                   <td>{{ employee.career }}</td>
                   <td>
-                    <RouterLink v-bind:to="{ name: 'employee', params: { id: employee.id } }">
-                      <button class="btn btn-primary">Ver</button>
+                    <RouterLink
+                      v-bind:to="{ name: 'employees.show', params: { id: employee.id } }"
+                      class="btn btn-primary"
+                    >
+                      Ver
                     </RouterLink>
                   </td>
                 </tr>
@@ -119,7 +127,7 @@ onMounted(async () => {
             </table>
           </div>
         </div>
-        <div class="card-footer">
+        <div class="card-footer" v-show="meta?.last_page !== 1">
           <div class="btn-group" role="group">
             <a
               v-bind:href="`/employees?page=${1}`"
