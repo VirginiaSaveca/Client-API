@@ -9,6 +9,7 @@ const route = useRoute();
 const links = ref({});
 const meta = ref({});
 
+const deleting = ref(false);
 const employees = ref([]);
 const usp = computed(() => {
   const _ = new URLSearchParams();
@@ -56,6 +57,54 @@ const GET = async () => {
   }
 };
 
+const DELETE = async id => {
+  try {
+    deleting.value = true;
+    const { data } = await http.delete(`/employees/${id}`);
+    Toast.fire({
+      icon: 'success',
+      title: 'Eliminar',
+      text: 'Registo excluido com sucesso.'
+    });
+    employees.value = employees.value?.filter(employee => employee.id !== id);
+    console.log(data);
+  } catch (error) {
+    if (error?.response) {
+      console.log(error.response);
+
+      if (error.response.status === 404) {
+        Toast.fire({
+          icon: 'error',
+          title: 'Oops...',
+          // TODO
+          text: 'Registo não encontrado.'
+        });
+      } else if (error.response.status === 429) {
+        Toast.fire({
+          icon: 'error',
+          title: 'Oops...',
+          // TODO
+          text: 'Muitas requisicoes, aguarde antes de tentar mais uma vez.'
+        });
+        //certifique-se que estejas online.
+      } else {
+        Toast.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data?.message
+        });
+      }
+    } else {
+      Toast.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Algo correu mal!'
+      });
+    }
+  } finally {
+    deleting.value = false;
+  }
+};
 onMounted(async () => {
   await GET();
 });
@@ -111,16 +160,27 @@ onMounted(async () => {
                 <tr class="align-middle" v-bind:key="employee.id" v-for="employee in employees">
                   <td>{{ employee.id }}</td>
                   <td>{{ employee.nuit }}</td>
-                  <td>{{ employee.branch }}</td>
+                  <td>{{ employee.branch?.name }}</td>
                   <td>{{ employee.name }}</td>
-                  <td>{{ employee.career }}</td>
+                  <td>{{ employee.career?.name }}</td>
                   <td>
-                    <RouterLink
-                      v-bind:to="{ name: 'employees.show', params: { id: employee.id } }"
-                      class="btn btn-primary"
-                    >
-                      Ver
-                    </RouterLink>
+                    <div class="d-flex gap-2">
+                      <RouterLink
+                        v-bind:to="{ name: 'employees.show', params: { id: employee.id } }"
+                        class="btn btn-ghost"
+                      >
+                        Ver
+                      </RouterLink>
+
+                      <RouterLink
+                        v-bind:to="{ name: 'employees.edit', params: { id: employee.id } }"
+                        class="btn btn-info"
+                      >
+                        Editar
+                      </RouterLink>
+
+                      <button class="btn btn-danger" type="button" v-on:click="DELETE(employee.id)">Eliminar</button>
+                    </div>
                   </td>
                 </tr>
               </tbody>

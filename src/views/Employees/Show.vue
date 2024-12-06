@@ -126,22 +126,22 @@ onMounted(async () => {
 
                 <tr class="align-middle">
                   <th class="fw-semibold text-nowrap bg-body-secondary">Carreira</th>
-                  <td>{{ employee.career }}</td>
+                  <td>{{ employee.career?.name }}</td>
                 </tr>
 
                 <tr class="align-middle">
                   <th class="fw-semibold text-nowrap bg-body-secondary">Nível</th>
-                  <td>{{ employee.level }}</td>
+                  <td>{{ employee.level?.name }}</td>
                 </tr>
 
                 <tr class="align-middle">
                   <th class="fw-semibold text-nowrap bg-body-secondary">Nível salarial</th>
-                  <td>{{ employee.salary_level }}</td>
+                  <td>{{ employee.salary_level?.level }}</td>
                 </tr>
 
                 <tr class="align-middle">
                   <th class="fw-semibold text-nowrap bg-body-secondary">Categoria</th>
-                  <td>{{ employee.category }}</td>
+                  <td>{{ employee.category?.name }}</td>
                 </tr>
 
                 <tr class="align-middle">
@@ -156,22 +156,22 @@ onMounted(async () => {
 
                 <tr class="align-middle">
                   <th class="fw-semibold text-nowrap bg-body-secondary">Departamento</th>
-                  <td>{{ employee.department }}</td>
+                  <td>{{ employee.department?.name }}</td>
                 </tr>
 
                 <tr class="align-middle">
                   <th class="fw-semibold text-nowrap bg-body-secondary">Partição</th>
-                  <td>{{ employee.partition }}</td>
+                  <td>{{ employee.partition?.name }}</td>
                 </tr>
 
                 <tr class="align-middle">
                   <th class="fw-semibold text-nowrap bg-body-secondary">Unidade orgânica</th>
-                  <td>{{ employee.organic_unit }}</td>
+                  <td>{{ employee.organic_unit?.name }}</td>
                 </tr>
 
                 <tr class="align-middle">
                   <th class="fw-semibold text-nowrap bg-body-secondary">Extensão</th>
-                  <td>{{ employee.branch }}</td>
+                  <td>{{ employee.branch?.name }}</td>
                 </tr>
 
                 <tr class="align-middle">

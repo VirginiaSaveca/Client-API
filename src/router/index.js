@@ -60,6 +60,11 @@ const router = createRouter({
           path: '/employees/:id(\\d+)',
           name: 'employees.show',
           component: () => import('./../views/Employees/Show.vue')
+        },
+        {
+          path: '/employees/:id(\\d+)/edit',
+          name: 'employees.edit',
+          component: () => import('./../views/Employees/Edit.vue')
         }
       ],
       meta: {
