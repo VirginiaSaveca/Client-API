@@ -116,12 +116,7 @@ const auth = useAuth();
       </div>
     </div>
     <footer class="footer px-4">
-      <div>
-        <a href="https://coreui.io">CoreUI </a
-        ><a href="https://coreui.io/product/free-bootstrap-admin-template/">Bootstrap Admin Template</a> © 2024
-        creativeLabs.
-      </div>
-      <div class="ms-auto">Powered by&nbsp;<a href="https://coreui.io/docs/">CoreUI UI Components</a></div>
+      <div>Copyright © {{ new Date().getFullYear() }} Marcia Saveca. Todos Direitos Reservados.</div>
     </footer>
   </div>
 </template>
