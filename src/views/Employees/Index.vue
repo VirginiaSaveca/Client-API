@@ -97,6 +97,7 @@ onMounted(async () => {
                   <th class="bg-body-secondary">Extensão</th>
                   <th class="bg-body-secondary">Nome</th>
                   <th class="bg-body-secondary">Carreira</th>
+                  <th class="bg-body-secondary"></th>
                 </tr>
               </thead>
 
@@ -107,6 +108,13 @@ onMounted(async () => {
                   <td>{{ employee.branch?.name }}</td>
                   <td>{{ employee.name }}</td>
                   <td>{{ employee.career?.name }}</td>
+                  <td>
+                    <RouterLink
+                      :to="{ name: 'employees.show', params: { id: employee.id } }"
+                      class="btn btn-primary px-4"
+                      >Ver</RouterLink
+                    >
+                  </td>
                 </tr>
               </tbody>
             </table>
