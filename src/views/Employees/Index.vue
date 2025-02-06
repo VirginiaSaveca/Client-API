@@ -9,7 +9,6 @@ const route = useRoute();
 const links = ref({});
 const meta = ref({});
 
-const deleting = ref(false);
 const employees = ref([]);
 const usp = computed(() => {
   const _ = new URLSearchParams();
@@ -57,63 +56,6 @@ const GET = async () => {
   }
 };
 
-const DELETE = async id => {
-  try {
-    Swal.fire({
-      title: 'Eliminar registo?',
-      showDenyButton: false,
-      showCancelButton: true,
-      confirmButtonText: 'Eliminar'
-    }).then(async result => {
-      if (result.isConfirmed) {
-        deleting.value = true;
-        const { data } = await http.delete(`/employees/${id}`);
-        Toast.fire({
-          icon: 'success',
-          title: 'Eliminar',
-          text: 'Registo excluido com sucesso.'
-        });
-        employees.value = employees.value?.filter(employee => employee.id !== id);
-        console.log(data);
-      }
-    });
-  } catch (error) {
-    if (error?.response) {
-      console.log(error.response);
-
-      if (error.response.status === 404) {
-        Toast.fire({
-          icon: 'error',
-          title: 'Oops...',
-          // TODO
-          text: 'Registo não encontrado.'
-        });
-      } else if (error.response.status === 429) {
-        Toast.fire({
-          icon: 'error',
-          title: 'Oops...',
-          // TODO
-          text: 'Muitas requisicoes, aguarde antes de tentar mais uma vez.'
-        });
-        //certifique-se que estejas online.
-      } else {
-        Toast.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: error.response.data?.message
-        });
-      }
-    } else {
-      Toast.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Algo correu mal!'
-      });
-    }
-  } finally {
-    deleting.value = false;
-  }
-};
 onMounted(async () => {
   await GET();
 });
@@ -130,12 +72,6 @@ onMounted(async () => {
           <li class="breadcrumb-item active"><span>Funcionários</span></li>
         </ol>
       </nav>
-    </div>
-  </div>
-
-  <div class="row mb-2">
-    <div class="col-12">
-      <RouterLink v-bind:to="{ name: 'employees.create' }" class="btn btn-primary">Criar</RouterLink>
     </div>
   </div>
 
@@ -161,7 +97,6 @@ onMounted(async () => {
                   <th class="bg-body-secondary">Extensão</th>
                   <th class="bg-body-secondary">Nome</th>
                   <th class="bg-body-secondary">Carreira</th>
-                  <th class="bg-body-secondary"></th>
                 </tr>
               </thead>
 
@@ -172,25 +107,6 @@ onMounted(async () => {
                   <td>{{ employee.branch?.name }}</td>
                   <td>{{ employee.name }}</td>
                   <td>{{ employee.career?.name }}</td>
-                  <td>
-                    <div class="d-flex gap-2">
-                      <RouterLink
-                        v-bind:to="{ name: 'employees.show', params: { id: employee.id } }"
-                        class="btn btn-ghost"
-                      >
-                        Ver
-                      </RouterLink>
-
-                      <RouterLink
-                        v-bind:to="{ name: 'employees.edit', params: { id: employee.id } }"
-                        class="btn btn-info"
-                      >
-                        Editar
-                      </RouterLink>
-
-                      <button class="btn btn-danger" type="button" v-on:click="DELETE(employee.id)">Eliminar</button>
-                    </div>
-                  </td>
                 </tr>
               </tbody>
             </table>

@@ -52,19 +52,9 @@ const router = createRouter({
           component: () => import('./../views/Employees/Index.vue')
         },
         {
-          path: '/employees/create',
-          name: 'employees.create',
-          component: () => import('./../views/Employees/Create.vue')
-        },
-        {
           path: '/employees/:id(\\d+)',
           name: 'employees.show',
           component: () => import('./../views/Employees/Show.vue')
-        },
-        {
-          path: '/employees/:id(\\d+)/edit',
-          name: 'employees.edit',
-          component: () => import('./../views/Employees/Edit.vue')
         }
       ],
       meta: {
