@@ -4,10 +4,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { onMounted, ref } from 'vue';
 import { RouterLink, useRoute, useRouter } from 'vue-router';
 
-const router = useRouter();
 const route = useRoute();
-const links = ref({});
-const meta = ref({});
 
 const employee = ref({});
 

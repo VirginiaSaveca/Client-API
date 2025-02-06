@@ -118,28 +118,28 @@ onMounted(async () => {
               v-bind:href="`/employees?page=${1}`"
               v-if="links?.first && meta?.current_page !== 1"
               class="btn btn-outline-primary"
-              >first</a
+              >Primeiro</a
             >
 
             <a
               v-bind:href="`/employees?page=${(meta?.current_page || 0) - 1}`"
               v-if="links?.prev && meta?.current_page !== meta?.last_page"
               class="btn btn-outline-primary"
-              >prev</a
+              >Anterior</a
             >
 
             <a
               v-bind:href="`/employees?page=${(meta?.current_page || 0) + 1}`"
               v-if="links?.next && meta?.current_page !== meta?.last_page"
               class="btn btn-outline-primary"
-              >next</a
+              >Proximo</a
             >
 
             <a
               v-bind:href="`/employees?page=${meta?.last_page || 1}`"
               v-if="links?.last && meta?.current_page !== meta?.last_page"
               class="btn btn-outline-primary"
-              >last</a
+              >Último</a
             >
           </div>
         </div>
