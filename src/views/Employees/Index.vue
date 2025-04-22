@@ -5,15 +5,25 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { computed, onMounted, ref } from 'vue';
 import { RouterLink, useRoute, useRouter } from 'vue-router';
 
-const router = useRouter();
 const route = useRoute();
 const links = ref({});
 const meta = ref({});
 
 const employees = ref([]);
 const query = ref(route.query?.query);
-
+const queried = ref(false);
 const processing = ref(false);
+
+watch(
+  query,
+  async () => {
+    if (!query.value && queried.value) {
+      await GET();
+      queried.value = false;
+    }
+  },
+  { immediate: true }
+);
 
 const Toast = Swal.mixin({
   toast: true,
@@ -36,6 +46,9 @@ const GET = async () => {
     _.append('per_page', route.query?.per_page || 15);
     if (query.value) {
       _.append('query', query.value);
+      queried.value = true;
+    } else {
+      queried.value = false;
     }
     return _;
   });
