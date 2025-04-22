@@ -1,4 +1,5 @@
 <script setup>
+import { watch } from 'vue';
 import http from '@/services/http';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { computed, onMounted, ref } from 'vue';
@@ -10,14 +11,7 @@ const links = ref({});
 const meta = ref({});
 
 const employees = ref([]);
-const usp = computed(() => {
-  const _ = new URLSearchParams();
-
-  if (typeof route.query?.page) _.append('page', route.query.page);
-  if (typeof route.query?.per_page) _.append('per_page', route.query.per_page);
-
-  return _;
-});
+const query = ref(route.query?.query);
 
 const processing = ref(false);
 
@@ -35,6 +29,16 @@ const Toast = Swal.mixin({
 
 const GET = async () => {
   processing.value = true;
+  const usp = computed(() => {
+    const _ = new URLSearchParams();
+
+    _.append('page', route.query?.page || 1);
+    _.append('per_page', route.query?.per_page || 15);
+    if (query.value) {
+      _.append('query', query.value);
+    }
+    return _;
+  });
 
   try {
     const { data } = await http.get(`/employees${usp.value ? `?${usp.value}` : ''}`);
@@ -79,11 +83,17 @@ onMounted(async () => {
     <div class="col-md-12">
       <div class="card mb-4">
         <div class="card-header">
+          <div class="mb-2" v-if="processing">Carregando dados ...</div>
           <div class="d-flex justify-content-between align-items-center">
             <div class="">
               Funcionários ( {{ employees.length }}/{{ meta?.per_page || 0 }} - {{ meta?.total || 0 }})
             </div>
-            <div class="" v-if="processing">Carregando dados ...</div>
+            <div class="d-flex align-items-center">
+              <input class="form-control" type="text" v-model="query" v-on:keydown.enter="GET" />
+              <button class="btn btn-primary" v-bind:disabled="processing" v-on:click="GET()" type="button">
+                Procurar
+              </button>
+            </div>
           </div>
         </div>
 
